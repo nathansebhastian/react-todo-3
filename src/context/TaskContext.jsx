@@ -1,5 +1,6 @@
 import { useState, createContext } from 'react';
 import { nanoid } from 'nanoid';
+import { toast } from 'react-hot-toast';
 
 export const TaskContext = createContext();
 
@@ -25,8 +26,6 @@ export const TaskProvider = props => {
     };
 
     setTasks(prevTasks => [...prevTasks, newTask]);
-    setTitle('');
-    toast.success('New Task added!');
   };
 
   const updateTaskStatus = taskId => {
@@ -48,9 +47,6 @@ export const TaskProvider = props => {
       return task;
     });
     setTasks(updatedTasks);
-    setEditTaskId(null);
-    setEditTaskTitle('');
-    toast.success('Task title updated!');
   };
 
   const deleteTask = taskId => {

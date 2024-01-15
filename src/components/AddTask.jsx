@@ -13,6 +13,8 @@ export const AddTask = () => {
     event.preventDefault();
     if (title.trim() !== '') {
       addTask(title);
+      setTitle('');
+      toast.success('New Task added!');
     } else {
       toast.error('Task field cannot be empty!');
     }

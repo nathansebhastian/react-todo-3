@@ -6,10 +6,10 @@ import { useState } from 'react';
 import { TaskInput } from './TaskInput';
 import { TaskContext } from '../context/TaskContext';
 import { useContext } from 'react';
+import { toast } from 'react-hot-toast';
 
 export const TaskList = () => {
-  const { tasks, deleteTask, editTask, updateTaskStatus } =
-    useContext(TaskContext);
+  const { tasks, deleteTask, editTask, updateTaskStatus } = useContext(TaskContext);
 
   // States to control edit button
   const [editTaskId, setEditTaskId] = useState(null);
@@ -18,6 +18,13 @@ export const TaskList = () => {
   function handleEditTask(taskId, taskTitle) {
     setEditTaskId(taskId);
     setEditTaskTitle(taskTitle);
+  }
+
+  function runEditTask() {
+    editTask(editTaskId, editTaskTitle);
+    setEditTaskId(null);
+    setEditTaskTitle('');
+    toast.success('Task title updated!');
   }
 
   return (
@@ -37,7 +44,7 @@ export const TaskList = () => {
               />
               <button
                 className='px-5 py-2 text-white bg-green-500 border-2 border-transparent rounded-lg hover:bg-green-700'
-                onClick={() => editTask(task.id)}
+                onClick={() => runEditTask(task.id)}
               >
                 Update
               </button>
